@@ -3,6 +3,7 @@
 
   /*
     version: 1.0.0
+    source: https://github.com/mirageglobe/lunar
 
     base data about chinese year information
     保存公历农历之间的转换信息:以任意一年作为起点，
