@@ -2,6 +2,8 @@
   const root = this
 
   /*
+    version: 1.0.0
+
     base data about chinese year information
     保存公历农历之间的转换信息:以任意一年作为起点，
     把从这一年起若干年(依需要而定)的农历信息保存起来。 要保存一年的信息，只要两个信息就够了:
@@ -17,7 +19,7 @@
     具体的就是1、2、4、5、8、10、12月大， 其余月份小(0x1a95=1101010010101B)，
     4月的后面那一个0表示的是闰4月小，接着的那个1表示5月大。
     这样就可以用一个数组来保存这些信息。在这里用数组lunarInfo[]来保存这些信息
-    */
+  */
 
   const lunarInfo = new Array(
     0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260,
@@ -64,9 +66,10 @@
     440795, 462224, 483532, 504758
   )
 
-  let nStr1 = new Array('日', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十')
-  let nStr2 = new Array('初','十', '廿', '卅', '□')
-  // var monthName = new Array("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC")
+  const nStr1 = new Array('日', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十')
+  const nStr2 = new Array('初','十', '廿', '卅', '□')
+
+  // let monthName = new Array("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC")
   let cmonthName = new Array('正', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '腊')
 
   // 公历节日 *表示放假日
@@ -177,9 +180,11 @@
     let i
     let leap = 0
     let temp = 0
+    let offset = 0
     const baseDate = new Date(1900, 0, 31)
-    // Mac和linux平台的firefox在此处会产生浮点数错误
-    let offset = Math.round((objDate - baseDate) / 86400000)
+
+    // mac和linux平台的firefox在此处会产生浮点数错误
+    offset = Math.round((objDate - baseDate) / 86400000)
 
     this.dayCyl = offset + 40
     this.monCyl = 14
@@ -199,7 +204,7 @@
     this.year = i
     this.yearCyl = i - 1864
 
-    leap = leapMonth (i) // 闰哪个月
+    leap = leapMonth(i) // 闰哪个月
     this.isLeap = false
 
     for (i = 1; i < 13 && offset > 0; i++) {
@@ -250,7 +255,7 @@
 
     // increment year
     for (i = 1900; i < lyear; i++) {
-      offset += lYearDays(i);
+      offset += lYearDays(i)
     }
 
     // increment month
@@ -420,10 +425,6 @@
       const sDay = solar.day
       const weekDay = nStr1[new Date(sYear, sMonth, sDay).getDay()]
       const isLeap = solar.isLeap
-      const that = {}
-      let cYear
-      let cMonth
-      let cDay
 
       return addFstv(sYear, sMonth, sDay, weekDay, lunarYear, lunarMonth, lunarDay, isLeap)
     }
@@ -432,7 +433,7 @@
   function addFstv (sYear, sMonth, sDay, weekDay, lunarYear, lunarMonth, lunarDay, isLeap) {
     let cYear
     let cMonth
-    let cDay
+    let cDay = ''
     let that = {}
 
     // 年柱 1900年立春后为庚子年(60进制36)
@@ -461,9 +462,7 @@
     // 日柱
     cDay = cyclical(dayCyclical + sDay - 1)
 
-    // sYear,sMonth,sDay,weekDay,
-    // lYear,lMonth,lDay,isLeap,
-    // cYear,cMonth,cDay
+    // sYear, sMonth, sDay, weekDay, lYear, lMonth, lDay, isLeap, cYear, cMonth, cDay
     that = new CalElement(sYear, sMonth + 1, sDay, weekDay, lunarYear, lunarMonth, lunarDay, isLeap, cYear, cMonth, cDay)
 
     // 节气
@@ -539,28 +538,28 @@
    * lalune.lunar2solar(new Date(2012, 3, 7))         --> 得到错误时间：2012, 4, 27
    * lalune.lunar2solar(new Date(2012, 3, 7), true)   --> 正确: 2012, 5, 27
    *
-   *result:
+   * result:
    *  {
    *    cDay: "戊戌"
-        , cMonth: "丁未"
-        , cYear: "壬辰"
-        , isLeap: false             // 该月是否为闰月
-        , lDay: 18
-        , lMonth: 6
-        , lYear: 2012
-        , lunarDay: "十八"
-        , lunarFestival: ""
-        , lunarMonth: "六"
-        , lunarYear: "龙"
-        , sDay: 5
-        , sMonth: 8
-        , sYear: 2012
-        , solarFestival: ""         // 节日
-        , solarTerms: ""            // 节气
-        , week: "日"                // 周几
-      }
-   *
+   *    , cMonth: "丁未"
+   *    , cYear: "壬辰"
+   *    , isLeap: false             // 该月是否为闰月
+   *    , lDay: 18
+   *    , lMonth: 6
+   *    , lYear: 2012
+   *    , lunarDay: "十八"
+   *    , lunarFestival: ""
+   *    , lunarMonth: "六"
+   *    , lunarYear: "龙"
+   *    , sDay: 5
+   *    , sMonth: 8
+   *    , sYear: 2012
+   *    , solarFestival: ""         // 节日
+   *    , solarTerms: ""            // 节气
+   *    , week: "日"                // 周几
+   *  }
    */
+
   const lalune = new Lune()
   const calDate = lalune.solar2lunar(new Date(2012, 4, 27))
 

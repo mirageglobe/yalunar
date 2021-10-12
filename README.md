@@ -1,11 +1,14 @@
 # lunar
 
-yet another lunar calendar conversion; a lunar to solar conversion in javascript
+maintainer: jimmy lim <mirageglobe@gmail.com>
+
+yet another lunar calendar conversion: a lunar to solar conversion in JavaScript
 
 # to use
 
 ```bash
-# tbc
+# run with node
+node lunar.js
 ```
 
 # to do
