@@ -9,6 +9,9 @@ yet another lunar calendar conversion: a lunar to solar conversion in JavaScript
 ```bash
 # run with node
 node lunar.js
+
+# test with ava
+npx ava
 ```
 
 # to do
