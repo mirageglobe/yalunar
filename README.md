@@ -12,6 +12,9 @@ node lunar.js
 
 # test with ava
 npx ava
+
+# ava test with watch (test only changed files)
+npx ava --watch
 ```
 
 # to do
