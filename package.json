@@ -1,5 +1,9 @@
 {
+  "name": "lunar",
+  "scripts": {
+    "test": "ava"
+  },
   "devDependencies": {
-    "ava": "^3.15.0"
+    "ava": "^5.1.0"
   }
 }
