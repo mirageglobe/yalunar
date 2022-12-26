@@ -5,6 +5,10 @@
     version: 1.0.0
     source: https://github.com/mirageglobe/lunar
 
+    reference
+    https://www.programminghunter.com/article/85501142176/
+    https://blog.csdn.net/guomainet309/article/details/51802589
+
     base data about chinese year information
     保存公历农历之间的转换信息:以任意一年作为起点，
     把从这一年起若干年(依需要而定)的农历信息保存起来。 要保存一年的信息，只要两个信息就够了:
@@ -20,11 +24,27 @@
     具体的就是1、2、4、5、8、10、12月大， 其余月份小(0x1a95=1101010010101B)，
     4月的后面那一个0表示的是闰4月小，接着的那个1表示5月大。
     这样就可以用一个数组来保存这些信息。在这里用数组lunarInfo[]来保存这些信息
-  */
+    0x代表十六进制. i.e 1980年的数据是： 0x095b0
 
-  /*
-   * reference https://www.programminghunter.com/article/85501142176/
-   * 0x代表十六进制. i.e 1980年的数据是： 0x095b0
+    0x代表十六进制，后面的是十六进制数。
+    举个例子：
+    1980年的数据是： 0x095b0
+    二进制：0000 1001 0101 1011 0000
+    1-4: 表示当年有无闰年，有的话，为闰月的月份，没有的话，为0。
+    5-16：为除了闰月外的正常月份是大月还是小月，1为30天，0为29天。
+    注意：从1月到12月对应的是第16位到第5位。
+    17-20：表示闰月是大月还是小月，仅当存在闰月的情况下有意义。
+    表示1980年没有闰月，从1月到12月的天数依次为：30、29、29、30、29、30、29、30、30、29、30、30
+
+    0x stands for hexadecimal, followed by a hexadecimal number.
+    For example:
+    The data for 1980 are: 0x095b0
+    Binary: 0000 1001 0101 1011 0000
+    1-4: Indicates whether there is a leap year in the current year, if there is, it is the month of the leap month, if not, it is 0.
+    5-16: Whether the normal month other than a leap month is a major or minor month, 1 is 30 days and 0 is 29 days. Note: From January to December corresponds to positions 16th to 5th.
+    17-20: Indicates whether a leap month is a major or minor month, and only makes sense if a leap month exists
+    Indicates that there was no leap month in 1980, and the number of days from January to December was: 30, 29, 29, 30, 30, 29, 30, 29, 30, 30.
+    when testing, from hexadecimal to binary, the first four zeros 0000 are ignored ( https://www.rapidtables.com/convert/number/hex-to-binary.html )
    */
 
   const lunarInfo = [
