@@ -56,9 +56,13 @@ demo.html
 
 ## to do
 
-- [] test <https://github.com/cucumber/cucumber-js> vs <https://github.com/avajs/ava>
+- [] investigate using commonjs (nodejs format) or es6 as lunar.js cannot be
+  added 
+- [x] investigate and describe how lunarinfo is used
+- [x] setup basic ava test
+- [x] test and select <https://github.com/cucumber/cucumber-js> or <https://github.com/avajs/ava>
 
-## references
+## reference
 
 - <https://github.com/gopherjs/gopherjs>
 - <https://github.com/6tail/lunar-javascript>
